@@ -1,12 +1,14 @@
-import React from 'react';
-import { CurrencyExchangeContainer } from '../../containers/CurrencyExchangeContainer/CurrencyExchangeContainer';
+import React from "react";
+import { CurrencyExchangeContainer } from "../../containers/CurrencyExchangeContainer/CurrencyExchangeContainer";
 
 // Redux
-// https://tproger.ru/translations/redux-for-beginners/
-// https://monsterlessons.com/project/series/redux-js-dlya-nachinayushih
-// https://xsltdev.ru/react/redux/intro/
+// !!! RUS: https://tproger.ru/translations/redux-for-beginners/
+// !!! ENG: https://www.freecodecamp.org/news/a-quick-guide-to-redux-for-beginners-971d18c0509b/
+// !!! https://monsterlessons.com/project/series/redux-js-dlya-nachinayushih
 
-// Typescript genetic
+// !!! https://reactdev.ru/libs/redux/basics/
+
+// Typescript generic
 // https://habr.com/ru/post/455473/
 // https://habr.com/ru/company/ruvds/blog/426729/
 
@@ -18,6 +20,8 @@ import { CurrencyExchangeContainer } from '../../containers/CurrencyExchangeCont
 
 // Dispatch
 // https://react-redux.js.org/using-react-redux/connect-mapdispatch
+
+// Разбор задания: https://www.youtube.com/watch?v=sVZ3-PAcpO0&list=PLbLBXDhswD1dtWULFSobOc7JOpUaCAwB7&index=14
 
 const Lesson1: React.FunctionComponent = () => {
   return (

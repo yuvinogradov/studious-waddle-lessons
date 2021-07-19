@@ -129,8 +129,25 @@ console.log("counter4 reset: ", counter4.get());
 counter4.set(785);
 console.log("counter4 set: ", counter4.get());
 
+// задание от владлена: https://www.youtube.com/watch?v=pahO5XjnfLA
+function logPerson() {
+  console.log(`Person: ${this.name}, age: ${this.age}, position: ${this.job}`);
+}
+
+const person1 = { name: "Michael", age: 22, job: "Frontend" };
+const person2 = { name: "Janet", age: 26, job: "Designer" };
+
+function bind(p, f) {
+  return function (...args) {
+    f.apply(p, args);
+  };
+}
+bind(person1, logPerson)();
+bind(person2, logPerson)();
+
 // Task 04*
-// Реализовать функцию superSum которая принимает число в качестве аргумента, которое указывает на количество слагаемых
+// Реализовать функцию superSum которая принимает число в качестве аргумента,
+// которое указывает на количество слагаемых
 // и что бы корректно работали следующие вызовы:
 // 1) superSum(0) //0
 // 2) superSum(3)(2)(5)(3) //10

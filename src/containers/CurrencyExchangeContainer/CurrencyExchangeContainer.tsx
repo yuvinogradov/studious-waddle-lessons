@@ -17,7 +17,8 @@ interface ICurrencyProps extends CurrencyState {
   changeCurrency: (currency: string) => void;
 }
 
-const CurrencyEContainer: React.FunctionComponent<TProps> = ({
+const CurrencyEContainer: React.FunctionComponent<TProps> = (props) => {
+  // const {
   // const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = ({
   // currencies,
   // currentCurrency,
@@ -27,16 +28,19 @@ const CurrencyEContainer: React.FunctionComponent<TProps> = ({
   // setCurrencyAmount,
   // setAction,
   // changeCurrency
+  // }=props
 
-  currencies,
-  currentCurrency,
-  isBuying,
-  amountOfBYN,
-  amountOfCurrency,
-  ChangeActionAC,
-  ChangeCurrencyFieldAC,
-  ChangeCurrentCurrencyAC
-}) => {
+  const {
+    currencies,
+    currentCurrency,
+    isBuying,
+    amountOfBYN,
+    amountOfCurrency,
+    ChangeActionAC,
+    ChangeCurrencyFieldAC,
+    ChangeCurrentCurrencyAC
+  } = props;
+
   let currencyRate: number = 0;
   const currenciesName = currencies.map((currency) => {
     if (currency.currencyName === currentCurrency) {

@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import CurrencyExchange from "../../components/CurrencyExchange/CurrencyExchange";
 import { IGlobalState } from "../../redux/state";
 import { CurrencyState } from "../../redux/currencyReducer";
@@ -17,15 +17,25 @@ interface ICurrencyProps extends CurrencyState {
   changeCurrency: (currency: string) => void;
 }
 
-const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = ({
+const CurrencyEContainer: React.FunctionComponent<TProps> = ({
+  // const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = ({
+  // currencies,
+  // currentCurrency,
+  // isBuying,
+  // amountOfBYN,
+  // amountOfCurrency,
+  // setCurrencyAmount,
+  // setAction,
+  // changeCurrency
+
   currencies,
   currentCurrency,
   isBuying,
   amountOfBYN,
   amountOfCurrency,
-  setCurrencyAmount,
-  setAction,
-  changeCurrency
+  ChangeActionAC,
+  ChangeCurrencyFieldAC,
+  ChangeCurrentCurrencyAC
 }) => {
   let currencyRate: number = 0;
   const currenciesName = currencies.map((currency) => {
@@ -42,18 +52,22 @@ const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = ({
       const trigger: string = e.currentTarget.dataset.currency;
       if (trigger === "byn") {
         if (value === "") {
-          setCurrencyAmount(value, value);
+          // setCurrencyAmount(value, value);
+          ChangeCurrencyFieldAC(value, value);
         } else {
-          setCurrencyAmount(
+          // setCurrencyAmount(
+          ChangeCurrencyFieldAC(
             value,
             (+Number(value).toFixed(2) / currencyRate).toFixed(2)
           );
         }
       } else {
         if (value === "") {
-          setCurrencyAmount(value, value);
+          // setCurrencyAmount(value, value);
+          ChangeCurrencyFieldAC(value, value);
         } else {
-          setCurrencyAmount(
+          // setCurrencyAmount(
+          ChangeCurrencyFieldAC(
             (+Number(value).toFixed(2) * currencyRate).toFixed(2),
             value
           );
@@ -63,13 +77,16 @@ const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = ({
   };
   const changeAction = (e: React.MouseEvent<HTMLSpanElement>) => {
     e.currentTarget.dataset.action === "buy"
-      ? setAction(true)
-      : setAction(false);
+      ? ChangeActionAC(true)
+      : ChangeActionAC(false);
+    // ? setAction(true)
+    // : setAction(false);
   };
 
   const changeCurrentCurrency = (e: React.MouseEvent<HTMLLIElement>) => {
     e.currentTarget.dataset.currency &&
-      changeCurrency(e.currentTarget.dataset.currency);
+      ChangeCurrentCurrencyAC(e.currentTarget.dataset.currency);
+    // changeCurrency(e.currentTarget.dataset.currency);
   };
 
   return (
@@ -98,21 +115,29 @@ const mapStateToProps = (state: IGlobalState) => {
     amountOfCurrency: state.currency.amountOfCurrency
   };
 };
-// @ts-ignore
-const mapDispatchToProps = (dispatch: Dispatch<CurrencyReducersTypes>) => {
-  return {
-    setCurrencyAmount(amountOfBYN: string, amountOfCurrency: string) {
-      dispatch(ChangeCurrencyFieldAC(amountOfBYN, amountOfCurrency));
-    },
-    setAction(isBuying: boolean) {
-      dispatch(ChangeActionAC(isBuying));
-    },
-    changeCurrency(currency: string) {
-      dispatch(ChangeCurrentCurrencyAC(currency));
-    }
-  };
-};
-// @ts-ignore
-export const CurrencyExchangeContainer = compose(
-  connect(mapStateToProps, mapDispatchToProps)
-)(CurrencyEContainer);
+
+// убираем в сокращенной конструкции
+// const mapDispatchToProps = (dispatch: Dispatch<CurrencyReducersTypes>) => {
+//   return {
+//     setCurrencyAmount(amountOfBYN: string, amountOfCurrency: string) {
+//       dispatch(ChangeCurrencyFieldAC(amountOfBYN, amountOfCurrency));
+//     },
+//     setAction(isBuying: boolean) {
+//       dispatch(ChangeActionAC(isBuying));
+//     },
+//     changeCurrency(currency: string) {
+//       dispatch(ChangeCurrentCurrencyAC(currency));
+//     }
+//   };
+// };
+// export const CurrencyExchangeContainer = compose(
+//   connect(mapStateToProps, mapDispatchToProps)
+// )(CurrencyEContainer);
+
+const connector = connect(mapStateToProps, {
+  ChangeActionAC,
+  ChangeCurrencyFieldAC,
+  ChangeCurrentCurrencyAC
+});
+type TProps = ConnectedProps<typeof connector>;
+export default connector(CurrencyEContainer);

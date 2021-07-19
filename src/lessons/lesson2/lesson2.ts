@@ -1,4 +1,4 @@
-console.log('lesson 2');
+console.log("lesson 2");
 
 // Lexical environment
 // http://jsflow.org/docs/lex-env/
@@ -20,9 +20,18 @@ console.log('lesson 2');
 // https://learn.javascript.ru/recursion
 // https://www.youtube.com/watch?v=Kuq6oIN3PH0
 
+// плейлист с урока:
+//lesson2 (10) https://www.youtube.com/playlist?list=PLbLBXDhswD1eNiE-NpwsnTg0x9J9w788t
 
 // Task 01
 // Реализовать функцию sum которая суммирует 2 числа следующим образом sum(3)(6) === 9
+function sum(a: number) {
+  return function (b: number) {
+    return a + b;
+  };
+}
+
+console.log(sum(4)(3));
 
 // Task 02
 // Реализовать функцию makeCounter которая работает следующим образом:
@@ -33,8 +42,26 @@ console.log('lesson 2');
 // counter2(); // 1
 // counter(); // 3
 
+function makeCounter() {
+  let i = 0;
+  console.log("counter created with initial value equals ", i);
+  return function () {
+    i += 1;
+    return i;
+  };
+}
+
+const counter = makeCounter();
+console.log("counter: ", counter());
+console.log("counter: ", counter());
+
+const counter2 = makeCounter();
+console.log("counter2: ", counter2());
+console.log("counter: ", counter());
+
 // Task 03
-// Переписать функцию из Task 02 так, что бы она принимала число в качестве аргумента и это число было стартовым значением счетчика
+// Переписать функцию из Task 02 так, что бы она принимала число в качестве аргумента
+// и это число было стартовым значением счетчика
 // и возвращала следующий объект методов:
 // increase: +1
 // decrease: -1
@@ -55,7 +82,6 @@ console.log('lesson 2');
 
 // Task 05
 // решить все задачи по рекурсии которые даны в конце статьи https://learn.javascript.ru/recursion
-
 
 // just a plug
 export default () => {};

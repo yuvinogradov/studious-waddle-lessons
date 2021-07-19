@@ -1,5 +1,5 @@
 import React from "react";
-import { connect, ConnectedProps } from "react-redux";
+import { connect, ConnectedProps, useDispatch } from "react-redux";
 import CurrencyExchange from "../../components/CurrencyExchange/CurrencyExchange";
 import { IGlobalState } from "../../redux/state";
 import { CurrencyState } from "../../redux/currencyReducer";
@@ -30,16 +30,26 @@ const CurrencyEContainer: React.FunctionComponent<TProps> = (props) => {
   // changeCurrency
   // }=props
 
+  // const {
+  //   currencies,
+  //   currentCurrency,
+  //   isBuying,
+  //   amountOfBYN,
+  //   amountOfCurrency,
+  //   ChangeActionAC,
+  //   ChangeCurrencyFieldAC,
+  //   ChangeCurrentCurrencyAC
+  // } = props;
+
   const {
     currencies,
     currentCurrency,
     isBuying,
     amountOfBYN,
-    amountOfCurrency,
-    ChangeActionAC,
-    ChangeCurrencyFieldAC,
-    ChangeCurrentCurrencyAC
+    amountOfCurrency
   } = props;
+
+  const dispatch = useDispatch<Dispatch<CurrencyReducersTypes>>();
 
   let currencyRate: number = 0;
   const currenciesName = currencies.map((currency) => {
@@ -57,40 +67,56 @@ const CurrencyEContainer: React.FunctionComponent<TProps> = (props) => {
       if (trigger === "byn") {
         if (value === "") {
           // setCurrencyAmount(value, value);
-          ChangeCurrencyFieldAC(value, value);
+          // ChangeCurrencyFieldAC(value, value)
+          dispatch(ChangeCurrencyFieldAC(value, value));
         } else {
           // setCurrencyAmount(
-          ChangeCurrencyFieldAC(
-            value,
-            (+Number(value).toFixed(2) / currencyRate).toFixed(2)
+
+          // ChangeCurrencyFieldAC(
+          //   value,
+          //   (+Number(value).toFixed(2) / currencyRate).toFixed(2)
+          // )
+
+          dispatch(
+            ChangeCurrencyFieldAC(
+              value,
+              (+Number(value).toFixed(2) / currencyRate).toFixed(2)
+            )
           );
         }
       } else {
         if (value === "") {
           // setCurrencyAmount(value, value);
-          ChangeCurrencyFieldAC(value, value);
+          dispatch(ChangeCurrencyFieldAC(value, value));
         } else {
           // setCurrencyAmount(
-          ChangeCurrencyFieldAC(
-            (+Number(value).toFixed(2) * currencyRate).toFixed(2),
-            value
+          // ChangeCurrencyFieldAC(
+          //   (+Number(value).toFixed(2) * currencyRate).toFixed(2),
+          //   value
+          // );
+
+          dispatch(
+            ChangeCurrencyFieldAC(
+              (+Number(value).toFixed(2) * currencyRate).toFixed(2),
+              value
+            )
           );
         }
       }
     }
   };
   const changeAction = (e: React.MouseEvent<HTMLSpanElement>) => {
+    //e.currentTarget.dataset.action === "buy" ? setAction(true) // : setAction(false);
+    // e.currentTarget.dataset.action === "buy"? ChangeActionAC(true): ChangeActionAC(false);
     e.currentTarget.dataset.action === "buy"
-      ? ChangeActionAC(true)
-      : ChangeActionAC(false);
-    // ? setAction(true)
-    // : setAction(false);
+      ? dispatch(ChangeActionAC(true))
+      : dispatch(ChangeActionAC(false));
   };
 
   const changeCurrentCurrency = (e: React.MouseEvent<HTMLLIElement>) => {
+    // e.currentTarget.dataset.currency && changeCurrency(e.currentTarget.dataset.currency);
     e.currentTarget.dataset.currency &&
-      ChangeCurrentCurrencyAC(e.currentTarget.dataset.currency);
-    // changeCurrency(e.currentTarget.dataset.currency);
+      dispatch(ChangeCurrentCurrencyAC(e.currentTarget.dataset.currency));
   };
 
   return (
@@ -138,10 +164,13 @@ const mapStateToProps = (state: IGlobalState) => {
 //   connect(mapStateToProps, mapDispatchToProps)
 // )(CurrencyEContainer);
 
-const connector = connect(mapStateToProps, {
-  ChangeActionAC,
-  ChangeCurrencyFieldAC,
-  ChangeCurrentCurrencyAC
-});
+// const connector = connect(mapStateToProps, {
+//   ChangeActionAC,
+//   ChangeCurrencyFieldAC,
+//   ChangeCurrentCurrencyAC
+// });
+
+const connector = connect(mapStateToProps, {}); // для корректности типизации передаем пустой объект
+
 type TProps = ConnectedProps<typeof connector>;
 export default connector(CurrencyEContainer);

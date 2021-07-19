@@ -68,6 +68,67 @@ console.log("counter: ", counter());
 // reset: установить счетчик в 0;
 // set: установить счетчик в заданное значение;
 
+function makeAdvansedCounter(startValue: number) {
+  let i = startValue;
+  console.log("Advaced counter created with initial value equals ", i);
+  return {
+    increase: function () {
+      i++;
+      return i;
+    },
+    decrease: function () {
+      i--;
+      return i;
+    },
+    reset: function () {
+      i = 0;
+      return i;
+    },
+    set: function (val: number) {
+      i = val;
+      return i;
+    }
+  };
+}
+
+const counter3 = makeAdvansedCounter(100);
+console.log("counter3 increase: ", counter3.increase());
+console.log("counter3 decrease: ", counter3.decrease());
+console.log("counter3 reset: ", counter3.reset());
+console.log("counter3 set: ", counter3.set(25));
+
+function makeAdvansedCounterWithGetter(startValue: number) {
+  let i = startValue;
+  console.log("Advaced counter created with initial value equals ", i);
+  return {
+    increase: function () {
+      i++;
+    },
+    decrease: function () {
+      i--;
+    },
+    reset: function () {
+      i = 0;
+    },
+    set: function (val: number) {
+      i = val;
+    },
+    get: function () {
+      return i;
+    }
+  };
+}
+
+const counter4 = makeAdvansedCounterWithGetter(100);
+counter4.increase();
+console.log("counter4 increase: ", counter4.get());
+counter4.decrease();
+console.log("counter4 decrease: ", counter4.get());
+counter4.reset();
+console.log("counter4 reset: ", counter4.get());
+counter4.set(785);
+console.log("counter4 set: ", counter4.get());
+
 // Task 04*
 // Реализовать функцию superSum которая принимает число в качестве аргумента, которое указывает на количество слагаемых
 // и что бы корректно работали следующие вызовы:

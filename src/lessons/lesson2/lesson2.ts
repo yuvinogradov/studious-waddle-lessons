@@ -1,5 +1,8 @@
 console.log("lesson 2");
 
+// плейлист с урока:
+//lesson2 (10) https://www.youtube.com/playlist?list=PLbLBXDhswD1eNiE-NpwsnTg0x9J9w788t
+
 // Lexical environment
 // http://jsflow.org/docs/lex-env/
 
@@ -19,9 +22,6 @@ console.log("lesson 2");
 // Recursion
 // https://learn.javascript.ru/recursion
 // https://www.youtube.com/watch?v=Kuq6oIN3PH0
-
-// плейлист с урока:
-//lesson2 (10) https://www.youtube.com/playlist?list=PLbLBXDhswD1eNiE-NpwsnTg0x9J9w788t
 
 // Task 01
 // Реализовать функцию sum которая суммирует 2 числа следующим образом sum(3)(6) === 9
@@ -44,12 +44,19 @@ console.log(sum(4)(3));
 
 function makeCounter() {
   let i = 0;
-  console.log("counter created with initial value equals ", i);
   return function () {
-    i += 1;
-    return i;
+    return ++i;
   };
 }
+
+// function makeCounter() {
+//   let i = 0;
+//   console.log("counter created with initial value equals ", i);
+//   return function () {
+//     i += 1;
+//     return i;
+//   };
+// }
 
 const counter = makeCounter();
 console.log("counter: ", counter());
@@ -145,6 +152,13 @@ function bind(p, f) {
 bind(person1, logPerson)();
 bind(person2, logPerson)();
 
+const a = 5;
+{
+  var b = 10;
+}
+
+console.log(a);
+console.log(b);
 // Task 04*
 // Реализовать функцию superSum которая принимает число в качестве аргумента,
 // которое указывает на количество слагаемых
